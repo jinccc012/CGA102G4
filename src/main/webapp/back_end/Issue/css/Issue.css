@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+tbody tr:hover {
+	content: attr(title);
+	background-color: rgb(208, 255, 255);
+}
+
+.btn:hover {
+	width: 100%;
+	display: inline-block; /* 解決震動 */
+	background-color: RoyalBlue;
+	color: White;
+	z-index: -1;
+}
+
+table {
+	table-layout: fixed; } 
+
+tbody tr td {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

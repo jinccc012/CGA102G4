@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Family Rent 連動</title>
+
+<style type="text/css">
+	body {
+		font-size: 20px;
+	}
+	
+	input{
+		height: 30px;
+	}
+	
+	button {
+		border: 0;
+        background-color: #003C9D;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 50px;
+        height: 30px;
+        vertical-align: auto;
+		
+	}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(set).click(()=>{
+			$.ajax ({
+				type: "POST",
+                url: "/CGA102G4/Member/LineBindFamilyRentServlet",
+                data: {
+                    meb_no: $(meb_no).val(),
+                },
+                
+                success: function (data) {
+                    alert('連動成功!，請您關閉此頁面，並確認是否有收到Line Notify訊息');
+                }	
+			})
+		});
+	})
+</script>
+</head>
+<body>
+	<h1>請輸入Family Rent帳號以綁定Line Notify</h1>
+	<div>
+		<input placeholder="會員帳號(身分證號)" id="meb_no">
+	</div>
+	<div>
+		<input placeholder="會員密碼">
+	</div>
+	<div>
+		<button id="set">送出</button>
+	</div>
+</body>
+</html>

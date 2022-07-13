@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>將跳轉到Line Notify註冊頁面</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(()=>{
+			$.ajax({
+	            type: "POST",
+	            url: "/CGA102G4/Member/LinePathServlet",
+	            data: {
+	                
+	            },
+	          	
+	            success: function (data) {
+	            	data = JSON.parse(data);
+					               
+                	window.location.assign(
+                			'https://notify-bot.line.me/oauth/authorize?'+
+               				'response_type=code&scope=notify'+
+               				'&response_mode=form_post&state=f094a459'+
+               				'&client_id=1a91jJLbmTeHcelyC6NF8H'+
+               				'&redirect_uri='+ data +
+               				'/CGA102G4/Member/LineServlet'
+                	);
+	               
+	            }
+	        })
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,80 @@
+body {
+            font-family: 微軟正黑體 !important;
+            font-weight: bold;
+            box-sizing: border-box;
+            background-color: white;
+        }
+        
+        
+        div.Order_Detail_div{
+            width: 1200px;
+            margin: auto;
+        }
+        
+        div.Order_Detail_div div.order_buttons{
+            border: 1px solid lightgray;
+            width: 100%;
+            height: 70px;
+            text-align: right;
+            background-color: azure;
+            border-radius: 5px;
+
+        }
+
+        div.Order_Detail_div div.order_buttons > button{
+            margin: 10px;
+        }
+
+        /* button {
+            border: 0;
+            background-color: #003C9D;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100px;
+            height: 30px;
+            vertical-align: auto;
+        } */
+
+        .customer_info {
+            /* margin-bottom: 1.5rem;     */
+            border: 1px solid lightgray;
+            background-color: azure;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+
+        .customer_info div{
+            margin-bottom: 1.5rem;    
+            
+        }
+
+        .left_side{
+            width: 45%;
+            margin-left: 10px;
+            margin-right: 20px;
+        }
+
+        .right_side{
+            width: 45%;
+            margin-right: 10px;
+        }
+
+        .left_2_right{
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .quater_css{
+            width: 22%;
+        }
+
+        .cross_line{
+            border: 1px solid black;
+            font-size: 0;
+            width: 100%;
+        }

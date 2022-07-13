@@ -1,0 +1,10 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap');
+	
+#formdiv{
+	position: relative;
+	width:300px;
+	height:100px;
+	top:10%;
+	left:10%;
+}

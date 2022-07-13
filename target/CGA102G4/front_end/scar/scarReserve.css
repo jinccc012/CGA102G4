@@ -1,0 +1,30 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap');
+
+.table {
+	text-align: center;
+}
+
+th, td, tr {
+	border: 3px solid darkgray;
+}
+
+.mb-5:hover {
+	cursor: pointer;
+	font-weight: 600;
+}
+
+/* 將下定時間欄位固定 */
+thead.thead>tr th:nth-child(2), thead.thead>tr th:nth-child(3) {
+	width: 250px;
+}
+
+tbody.tbody tr:hover {
+	content: attr(title);
+	background-color: rgb(208, 255, 255);
+}
+
+.custom-pagination {
+	position: fixed;
+	bottom: 10px;
+}

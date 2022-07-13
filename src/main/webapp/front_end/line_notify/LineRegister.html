@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Line綁定</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(()=>{
+			$.ajax({
+                type: "POST",
+                url: "/CGA102G4/Member/LinePathServlet",
+                data: {
+                    
+                },
+              	
+                success: function (data) {
+                	data = JSON.parse(data);
+					
+                    $(btn).click(()=>{
+                    	window.location.assign(
+                    			'https://notify-bot.line.me/oauth/authorize?'+
+                   				'response_type=code&scope=notify'+
+                   				'&response_mode=form_post&state=f094a459'+
+                   				'&client_id=1a91jJLbmTeHcelyC6NF8H'+
+                   				'&redirect_uri='+ data +
+                   				'/CGA102G4/Member/LineServlet'
+                    	);
+                    })
+                }
+            })
+		});
+	</script>
+</head>
+<body>
+	<h1>點擊按鈕註冊</h1>
+	<button id="btn">點我註冊</button>
+	<h1>或掃QRcode，利用手機註冊</h1>
+	<img alt="" src="/CGA102G4/Member/LineQRServelet">
+</body>
+</html>

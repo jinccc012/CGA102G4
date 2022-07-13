@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    
+    <!-- moment.js 套件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    
+    <!-- 彈窗套件 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- jQuery 寫在這裡 -->
+    <script>
+        // 初始要先拿到訂單的資料
+        $(document).ready(function(){
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const userCode = urlParams.get('code');
+            
+            $.ajax({
+                type: "POST",
+                url: "/CGA102G4/RcarOrder/RcarOrderQuery",
+                data: {
+                    order_id: id,
+                    code: userCode,
+                },
+                
+                success: function (data) {
+                    data = JSON.parse(data);
+                    setOrderColumn(data);
+                    setBtnVisibility(data);
+                }
+            })
+        });
+
+        function setOrderColumn(data){
+            $(order_status).text(statusStr(data.rcaro_status));
+            
+            $(order_id).val(data.rcaro_no);
+			$("#member_id").val(data.meb_no);
+            $(driver_name).val(data.lessee_name);
+            
+            $(start_store).val(data.rcaro_pickuploc);
+            $(return_store).val(data.rcaro_returnloc);
+            // 實際歸還戰點
+            if(statusStr(data.rcaro_status) ==="未結案" || statusStr(data.rcaro_status) =="已結案"){
+                $(real_return_store).val(data.rcaro_returnloc_actual);
+            }else{
+                $(real_return_store).val(data.rcaro_returnloc);
+            }
+
+            $(rcar_dispatched).val(data.rcar_no);
+
+            // 預計取車還車時間
+            let pickUpTime = formatTime(new Date(data.rcaro_ppicktime));
+            let dropOffTime = formatTime(new Date(data.rcaro_pprettime));
+            $(pick_up_time).val(pickUpTime);
+            $(drop_off_time).val(dropOffTime);
+
+            // 實際取車還車時間
+            
+            if(data.rcaro_rpicktime === undefined){
+            }else{
+                let realPickUpTime = formatTime(new Date(data.rcaro_rpicktime));
+                $(real_pick_up_time).val(realPickUpTime);
+            }
+            
+            if(data.rcaro_rrettime === undefined){
+            }else{
+                let realDropOffTime = formatTime(new Date(data.rcaro_rrettime));
+                $(real_drop_off_time).val(realDropOffTime);
+            }
+            
+            // 額外付款金額
+            $(extra_pay).val(data.rcaro_extra_pay);
+            
+        }
+        
+        function setBtnVisibility(data){
+			// 判斷是否有車號 沒車號一樣只剩上一頁按鈕
+            
+            if($(rcar_dispatched).val() == ''){
+            	$(give_car).hide();
+                $(extra_pay_btn).hide();
+                $(return_car).hide();
+            	return '未配車';
+            }
+        	
+        	switch(data.rcaro_status){
+                case 0:
+                    $(give_car).show();
+                    $(extra_pay_btn).hide();
+                    $(return_car).hide();
+                    return '訂單成立';
+                case 1:
+                	$(give_car).hide();
+                    $(extra_pay_btn).hide();
+                    $(return_car).show();
+                    return '出車中';
+                case 2:
+                	$(give_car).hide();
+                    $(extra_pay_btn).hide();
+                    $(return_car).hide();
+                    return '已結案';
+                case 3:
+                	$(give_car).hide();
+                    $(extra_pay_btn).show();
+                    $(return_car).hide();
+                    return '未結案';
+                case 4:
+                	$(give_car).hide();
+                    $(extra_pay_btn).hide();
+                    $(return_car).hide();
+                	return '訂單取消';
+            }
+            
+            
+        }
+        
+        function statusStr(status){
+            switch(status){
+                case 0:
+                    return '訂單成立';
+                case 1:
+                    return '出車中';
+                case 2:
+                    return '已結案';
+                case 3:
+                    return '未結案';
+                case 4:
+                    return '訂單取消';
+            }
+        }
+
+        function formatTime(date){
+            let str = '';
+             
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0'+ (date.getMonth() + 1);
+            let day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
+            let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
+            let minutes = date.getMinutes() > 9 ? date.getMinutes() : '0'+date.getMinutes();
+            str = year + '-' + month + '-' + day + 'T' + hour + ':' + minutes;
+            
+            return str;
+        }
+    </script>
+    
+    <script>
+        $(document).ready(function(){
+            // 上一頁
+            $(previous_page).click(()=>{
+            	window.location.assign("/CGA102G4/back_end/Rcar_Order/RcarOrder.jsp");
+            });
+        	
+        	// 出車功能
+            $(give_car).click(()=>{
+                let time = formatTime(new Date())+':00';
+                let rcar_no = $(rcar_dispatched).val();
+                // console.log(time);
+                // $(real_pick_up_time).val(time);
+                $(give_car_time_modal).text('出車時間: ' + time);
+                  
+                    
+            });
+            // 確定出車
+            $(give_car_submit).click(()=>{
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const id = urlParams.get('id');
+                    let time = formatTime(new Date())+':00'; // added
+                    let rcar_no = $(rcar_dispatched).val();  // added
+                    $(give_car_time_modal).text('出車時間: ' + time); //added
+                    $(real_pick_up_time).val(time);
+                    $.ajax({
+                        type: "POST",
+                        url: "/CGA102G4/RcarOrder/RcarOrderPickUp",
+                        data: {
+                            order_id: id,
+                            RCARO_RPICKTIME: time,
+                            RCAR_NO: rcar_no
+                        },
+
+                        success: function (data) {
+                            console.log(data);
+                            data = JSON.parse(data);
+                            // setOrderColumn(data);
+                            swal('已出車', '訂單修改成功!', 'success').then(function(){
+                                window.location.reload();
+                            });   
+                        }
+                    })
+                });
+
+
+            // 還車功能
+            $(drop_off_car_modal).click(()=>{
+                let time = formatTime(new Date())+':00';
+                let rcar_no = $(rcar_dispatched).val();
+                $(drop_off_car_time_modal).text('還車時間: ' + time);
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                
+                $(drop_off_car_submit).click(()=>{
+                    $(real_drop_off_time).val(time);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/CGA102G4/RcarOrder/RcarOrderDropOff",
+                        data: {
+                            order_id: id,
+                            RCARO_RRETTIME: time,
+                            RCARO_RETURNLOC_ACTUAL: $(drop_off_loc).val(),
+                            RCAR_NO: rcar_no
+                        },
+
+                        success: function (data) {
+                            console.log(data);
+                            data = JSON.parse(data);
+                            // setOrderColumn(data);
+                            swal('已還車', '訂單修改成功!', 'success').then(function(){
+                                window.location.reload();
+                            });
+                        }
+                    })
+                })
+            })
+
+            // 額外付款功能
+            $(extra_pay_modal).click(()=>{
+                let cost = $(extra_pay).val();
+                $(extra_pay_modal_info).text("額外付款為 " + cost +  "元");
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                
+                $(extra_pay_submit).click(()=>{
+                    $.ajax({
+                        type: "POST",
+                        url: "/CGA102G4/RcarOrder/RcarOrderExtraPayServlet", 
+                        data: {
+                            order_id: id
+                        },
+
+                        success: function (data) {
+                            console.log(data);
+                            data = JSON.parse(data);
+                            // setOrderColumn(data);
+                            swal('已付款', '訂單修改成功!', 'success').then(function(){
+                                window.location.reload();
+                            });
+                        }
+                    })
+                })
+            })
+        });
+    </script>
+    
+
+    <style>    
+        
+        body {
+            font-family: 微軟正黑體 !important;
+            font-weight: bold;
+            box-sizing: border-box;
+            background-color: whitesmoke;
+        }
+        div {
+            /* border: 1px solid black; */
+        }
+        
+        div.Order_Detail_div{
+            width: 1200px;
+            margin: auto;
+        }
+        
+        div.Order_Detail_div div.order_buttons{
+            border: 1px solid lightgray;
+            width: 100%;
+            height: 70px;
+            text-align: right;
+            background-color: azure;
+            border-radius: 5px;
+
+        }
+
+        div.Order_Detail_div div.order_buttons > button{
+            margin: 10px;
+        }
+
+        .order_buttons button {
+            border: 0;
+            background-color: #003C9D;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100px;
+            height: 30px;
+            vertical-align: auto;
+        }
+
+        .order_info {
+            /* margin-bottom: 1.5rem;     */
+            border: 1px solid lightgray;
+            background-color: azure;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+
+        .order_info div{
+            margin-bottom: 1.5rem;    
+            
+        }
+
+        .left_side{
+            width: 45%;
+            margin-left: 10px;
+            margin-right: 20px;
+        }
+
+        .right_side{
+            width: 45%;
+            margin-right: 10px;
+        }
+
+        .left_2_right{
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .quater_css{
+            width: 22%;
+        }
+
+        .cross_line{
+            border: 1px solid black;
+            font-size: 0;
+            width: 100%;
+        }
+
+    </style>
+
+    
+</head>
+<body>
+    <div class="Order_Detail_div">
+        <h1>訂單明細</h1>
+        
+        <div class="order_buttons">
+            
+            <span style="width:30px;  text-align: left;">訂單狀態: </span>
+            <span style="width: 70px; text-align: left;" id="order_status">訂單狀態顯示在這裡</span>
+
+            <button id="previous_page">上一頁</button>
+            <button id="extra_pay_btn" data-bs-toggle="modal" data-bs-target="#extra_pay_modal">額外付款</button>
+            <button id="give_car" data-bs-toggle="modal" data-bs-target="#give_car_modal">出車</button> 
+            
+            <button id="return_car" data-bs-toggle="modal" data-bs-target="#drop_off_car_modal">還車</button>
+        </div>
+        
+        <div class="order_info">
+            <br>
+            
+            <div class="div_order_id left_side">
+                <label for="">訂單編號:</label><br>
+                <input type="text" value="12345678" id = "order_id" disabled> 
+            </div>
+
+            <div class="div_member_id right_side">
+                <label for="">會員編號:</label><br>
+                <input type="text" value="12345678" id = "member_id" disabled> 
+            </div>
+            
+            <div class="div_memeber_name left_side">
+                <label for="">駕駛姓名:</label><br>
+                <input type="text" value="宇軒" id = "driver_name" disabled> 
+            </div>
+            
+            <div class="div_member_phone right_side">
+                <label for="">會員電話:</label><br>
+                <input type="text" value="0989614409" id = "member_phone" disabled> 
+            </div>
+
+            <div class="div_start_store quater_css" style="margin-left:10px;">
+                <label for="">起租站點:</label><br>
+                <select name="start_store" id="start_store" disabled>
+                    <option value="TPE">台北站</option>
+                    <option value="TC">台中站</option>
+                    <option value="KH">高雄站</option>
+                </select>
+            </div>
+
+            <div class="div_return_store quater_css">
+                <label for="">歸還站點:</label><br>
+                <select name="return_store" id="return_store" disabled>
+                    <option value="TPE">台北站</option>
+                    <option value="TC">台中站</option>
+                    <option value="KH">高雄站</option>
+                </select>
+            </div>
+
+            
+            <div class="div_real_return_store quater_css" style="margin-left: 30px;">
+                    <label for="">實際歸還站點:</label><br>
+                    <select name="real_return_store" id="real_return_store" disabled>
+                        <option value="TPE">台北站</option>
+                        <option value="TC">台中站</option>
+                        <option value="KH">高雄站</option>
+                    </select>
+            </div>
+
+            <div class="div_rcar_dispatched quater_css">
+                <label for="">出租車號:</label><br>
+                <input type="text" value="TP-0001" id = "rcar_dispatched" disabled> 
+            </div>
+
+            <div class="corss_line">
+
+            </div>
+
+            <div class="div_order_car_time left_side">
+                <label for="">取車時間:</label><br>
+                <input type="datetime-local" id="pick_up_time" disabled>
+            </div>
+
+            <div class="div_order_return_time right_side">
+                <label for="">還車時間:</label><br>
+                <input type="datetime-local" id="drop_off_time" disabled> 
+            </div>
+
+            <div class="div_give_car_real_time left_side">
+                <label for="">實際取車時間:</label><br>
+                <!-- <input type="date" id = "give_car_real_date">  -->
+                <input type="datetime-local" id = "real_pick_up_time" disabled>
+            </div>
+
+            <div class="div_return_car_real_time right_side">
+                <label for="">實際還車時間:</label><br>
+                <input type="datetime-local" id= "real_drop_off_time" disabled>
+            </div>
+
+            <div class="div_extra_pay left_side">
+                <label for="">額外付款:</label><br>
+                <input type="number" id = "extra_pay" disabled>
+            </div>
+
+            
+        </div>
+    </div>    
+
+    <!-- 彈窗div -->
+    <div class="myModals">
+        <!-- 出車 -->
+        <div class="modal fade" id="give_car_modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Header -->
+                        <div class="modal-header">
+                            <h1>確認出車</h1>
+                        </div>
+                    <!-- Body -->
+                        <div class="modal-body give_car_info_modal">
+                            <div id="give_car_time_modal">    
+                                
+                            </div>
+                            <div >
+                                確認顧客確實取車，做好行前檢查
+                            </div>
+                            
+                        </div>
+                    <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="give_car_submit">確定</button>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 還車 -->
+        <div class="modal fade" id="drop_off_car_modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Header -->
+                        <div class="modal-header">
+                            <h1>確認還車</h1>
+                        </div>
+                    <!-- Body -->
+                        <div class="modal-body drop_off_car_info_modal">
+                            <div id="drop_off_car_time_modal">    
+                                
+                            </div>
+                            <div>
+                                還車站點選擇
+                                <select name="" id="drop_off_loc">
+                                    <option value="TPE">台北站</option>
+                                    <option value="TC">台中站</option>
+                                    <option value="KH">高雄站</option>
+                                </select>
+                            </div>
+                            <div >
+                                確認顧客確實還車，實施車況檢查
+                            </div>
+                            
+                        </div>
+                    <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="drop_off_car_submit">確定</button>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="extra_pay_modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Header -->
+                        <div class="modal-header">
+                            <h1>確認額外付款</h1>
+                        </div>
+                    <!-- Body -->
+                        <div class="modal-body">
+                            <div id="extra_pay_modal_info">    
+                                
+                            </div>
+                            <div >
+                                確認顧客額外付款款項
+                            </div>
+                            
+                        </div>
+                    <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="extra_pay_submit">確定</button>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<!-- 老師可以請問一下 css中的"%" 都是指相對於父元素的大小作%運算嗎?
+
+例如 <body>裡面有<div1>；<div1>裡有<div2>
+那我對<div2>做width="100%" 是指把<div2>撐大到符和<div1>的大小 -->
+
+
+<!-- C:\Users\Tibame\.m2\repository\org\projectlombok\lombok\1.18.22\lombok-1.18.22.jar -->

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Family Rent || 登入</title>
+    <link rel="icon" href="../../resources/icon/pngkey.com-gps-icon-png-5131691.png" type="image/x-icon" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1d9dcf12aa.js" crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" href="css/bootstrap-datepicker.css"> -->
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="../../resources/css/head.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/jquery.datetimepicker.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap');
+    </style>
+    <style>
+        input {
+            margin-left: 10px;
+            border-radius: 5px;
+            color: #003C9D;
+            background-color: #fff;
+            border: 2px #003C9D solid;
+        }
+
+        form {
+            /* margin-top: 350px; */
+            font-weight: bold;
+        }
+
+        button {
+            border: 0;
+            background-color: #003C9D;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* button{
+          color:#003C9D;
+          background-color:#fff;
+          border:2px #003C9D solid;
+  } */
+        body {
+            font-family: 微軟正黑體 !important;
+            font-weight: bold;
+        }
+
+        h1.in {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        div.container {
+            background-color: rgba(216, 226, 218, 0.4);
+            border-radius: 2%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 背景圖輸入這行div!!!!-->
+    <div class="hero" style="background-image: url('../../resources/img/hero_1_a.jpg');">
+
+        <div class="container" style="width: 300px; position:fixed; top:50%;left:50%;margin-left:-150px;margin-top:-65px;">
+            <h1 class="in"><i class="fa-solid fa-user-tie"></i>會員登入</h1>
+            <div class="login1-form validate-form container">
+                <!-- 輸入MAIL -->
+                <div class="wrap-input1 validate-input" data-validate="MAIL未輸入">
+                    <label for="input1">帳號:</label>
+                    <p1><input class="input1" type="text" id="username" name="username" placeholder="請輸入MAIL"
+                            style="font-size:18px"></p1>
+                </div>
+                <!-- 輸入密碼 -->
+                <div class="wrap-input1 validate-input" data-validate="密碼未輸入">
+                    <label for="input2">密碼:</label>
+                    <p2><input class="input2" type="password" id="password" name="password" placeholder="請輸入密碼" style="margin-top:10px;font-size:18px"></p2>
+                </div>
+
+                <!-- 註冊&忘記密碼 -->
+                <div class="a1" style="display: flex;justify-content: space-between;">
+                    <a href="../member/Register.html">註冊會員</a>
+                    <a href="../member/ForgotPassword.html">忘記密碼?</a>
+                </div>
+
+            </div>
+            <!-- 登入button -->
+            <div class="" style="display: inline-block;">
+                <button class="button3" style="width:60px;height:30px;">登入</button>
+            </div>
+
+        </div>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- <script>$(".button3").click(()=>{swal({
+          title:"登入",
+          icon:"success"
+      })})</script> -->
+    </div>
+    <script>
+        $('.button3').click(function () {
+            let username = $('#username').val()
+            let password = $('#password').val()
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("post", '../../login', true);
+            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+            xhr.send(`username=${username}&password=${password}`);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) { //處理完成
+                    if (xhr.status == 200 && xhr.responseText !== 'false') { //登入成功
+                        swal({
+                            title: "登入成功!",
+                            icon: "success",
+                        }).then(() => {
+                                location.replace(xhr.responseText);
+                        });
+                    } else {
+                        swal({
+                            title: "帳號或密碼錯誤!",
+                            icon: "error",
+                        })
+                    }
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

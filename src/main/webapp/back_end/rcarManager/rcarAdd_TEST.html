@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="icon/pngkey.com-gps-icon-png-5131691.png" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Rent || 後台管理系統</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap');
+    </style>
+    <style>
+        * {
+            box-sizing: border-box;
+            /* font-family: 思源黑體 !important; */
+            font-weight: bold;
+            font-family: 'Montserrat', "Microsoft Yahei", "Noto Sans CJK SC", 'Noto Sans TC', "Droid Sans Fallback";
+        }
+
+        /* @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); */
+        body {
+            font-family: 'Noto Sans TC', sans-serif !important;
+        }
+
+        html {
+            /*根元素*/
+            /* font-size: 62.5%;  =10px */
+            --header-height: 60px;
+            --asidr-width: 240px;
+        }
+
+        body {
+            max-width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            background-color: #A0c1d2;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        .store {
+            display: flex;
+            width: 15%;
+            justify-content: space-between;
+        }
+
+        aside {
+            background-color: rgba(160, 193, 210, 0.6);
+            font-size: 20px;
+            position: fixed;
+            width: var(--asidr-width);
+            left: 0;
+            top: var(--header-height);
+            height: calc(100% - var(--header-height));
+            /*公式調整,建議不寫死*/
+            overflow-y: auto;
+            padding: 5px 15px;
+        }
+
+        main {
+            border: 3px solid whitesmoke;
+            height: 50%;
+            background-color: rgba(160, 193, 210, 0.4);
+            width: calc(100% - var(--asidr-width));
+            margin-left: var(--asidr-width);
+            min-height: calc(100vh - var(--header-height));
+
+            padding: 0px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 5px;
+
+        }
+
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- 上面header欄位 -->
+    <header class="header">
+        <h1>Family Rent 後台管理系統</h1>
+        <ul class="store">
+            <li>總公司</li>
+            <li>鄭利至慧<i class="fa-solid fa-right-from-bracket"></i></li>
+        </ul>
+
+    </header>
+
+    <!-- 左側功能欄位 -->
+    <main class="main">
+        <aside class="aside;">
+            <!-- 訂單管理 -->
+            <nav class="nav-list1">
+                <ul>
+                    <li class="lss"><i class="fa-solid fa-file-circle-plus"></i>訂單管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢訂單</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>取消訂單</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢訂單</a>
+                        </div>
+                    </li>
+
+                    <!-- 會員資料管理 -->
+                    <li class="lss"><i class="fa-solid fa-users"></i>會員資料管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>新增會員</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>修改會員資料</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢會員資料</a>
+                        </div>
+                    </li>
+                    <!-- 出車還車管理 -->
+                    <li class="lss"><i class="fa fa-taxi" aria-hidden="true"></i>出車還車管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>出車</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>還車</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>未結案查詢</a>
+                        </div>
+                    </li>
+                    <!-- 調車管理 -->
+                    <li class="lss"><i class="fa-solid fa-arrow-right-arrow-left"></i>車輛調度管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>站所調出入作業</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>車輛站所查詢</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>車輛狀態查詢</a>
+                        </div>
+                    </li>
+                    <!-- 門市車輛管理-->
+                    <li class="lss"><i class="fa-solid fa-shop"></i>門市車輛管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>車輛管控</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>門市車輛上下架</a><br>
+                        </div>
+                    </li>
+                    <!-- 配車管理 -->
+                    <li class="lss"><i class="fa-solid fa-car-side"></i>配車管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>台北站</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>台中站</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>高雄站</a>
+                        </div>
+                    </li>
+                    <!-- 行銷管理 -->
+                    <li class="lss"><i class="fa-solid fa-person-rays"></i>行銷管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>網站新增活動</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>活動上下架</a><br>
+                        </div>
+                    </li>
+                    <!-- 員工管理 -->
+                    <li class="lss"><i class="fa fa-user" aria-hidden="true"></i>員工管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>新增員工資料</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>修改員工資料</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢員工資料</a>
+                        </div>
+                    </li>
+                    <!-- 客服管理 -->
+                    <li class="lss"><i class="fa-solid fa-comment-dots"></i>客服管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>客服回覆</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢過往客服紀錄</a><br>
+                        </div>
+                    </li>
+                    <!-- 總公司車輛管理 -->
+                    <li class="lss"><i class="fa-solid fa-car-tunnel"></i>總公司車輛管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>車輛汰售</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>所有車輛現況查詢</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>車輛級距管理</a>
+                        </div>
+
+                    </li>
+                    <!-- 中古車競拍紀錄 -->
+                    <li class="lss"><i class="fa-solid fa-receipt"></i>中古車競拍紀錄
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車得標紀錄</a><br>
+                        </div>
+                    </li>
+                    <!-- 中古車拍賣管理 -->
+                    <li class="lss"><i class="fa-solid fa-gavel"></i>中古車拍賣管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車上架</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車下架</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車修改車輛資訊</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢中古車輛</a><br>
+                        </div>
+                    </li>
+                    <!-- 中古車上下架管理 -->
+                    <li class="lss"><i class="fa-solid fa-arrow-down-up-across-line"></i>中古車上下架管理
+                        <div class="div2" style="display:none;">
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車上架</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車下架</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>中古車修改車輛資訊</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢中古車輛</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢中古車預約紀錄</a><br>
+                            <a href=""><i class="fa-solid fa-circle-arrow-right"></i>查詢中古車取消紀錄</a><br>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="content">
+            <div class="col-8" style="margin: 0 auto; margin-top: 10%;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="formGroupExampleInput2" class="form-label">車牌號碼</label>
+                        <input type="text" id="rcarno" class="form-control" placeholder="XXX-XXXX"
+                            aria-label="rcarno">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="formGroupExampleInput2" class="form-label">所屬門市</label>
+                        <select class="form-select" id="store">
+                            <option selected value="TPE">台北站</option>
+                            <option value="KH">高雄站</option>
+                            <option value="TC">台中站</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="formGroupExampleInput2" class="form-label">車型</label>
+                        <select class="form-select" id="model">
+                            <option selected>ALTIS</option>
+                            <option>COLTPLUS</option>
+                            <option>CX-5</option>
+                            <option>FOCUS</option>
+                            <option>KUGA</option>
+                            <option>RAV4</option>
+                            <option>SENTRA</option>
+                            <option>Starex</option>
+                            <option>TIIDA</option>
+                            <option>YARIS</option>
+                            <option>旅行家</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="formGroupExampleInput2" class="form-label">里程</label>
+                        <input type="text" id="miles" value="0" aria-label="miles">
+                    </div>
+                </div>
+                <div class="mb-3">
+
+                </div>
+                <button type="button" class="btn btn-primary" onclick="insert()">新增車輛</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        $('.lss').click(function (e) {
+            const target = e.target;
+            if (target.classList.contains('lss')) {
+                $(this).children('div.div2').slideToggle(500);
+            }
+        })
+    </script>
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+    <script>
+        function insert() {
+            console.log(document.getElementById('rcarno').value);
+            console.log(document.getElementById('store').value);
+            console.log(document.getElementById('model').value);
+            console.log(document.getElementById('miles').value);
+            $.ajax({
+                method: 'post',
+                url: '../../back_end/rcar.do',
+                dataType: 'json',
+                data: {
+                    rcarno: document.getElementById('rcarno').value,
+                    storeno:document.getElementById('store').value,
+                    modelno:document.getElementById('model').value,
+                    miles:document.getElementById('miles').value,
+                    action: 'insert'
+                },
+                success: function () {
+                    console.log('ggg');
+                    window.location.replace("rcar.html");
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

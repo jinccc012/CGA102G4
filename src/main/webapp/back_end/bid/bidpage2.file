@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+
+<div class="d-flex justify-content-end">
+
+<div 	>
+<ul class="list-group list-group-horizontal" style="list-style-type:none"> 
+  <%if (rowsPerPage<rowNumber) {%>
+    <%if(pageIndex>=rowsPerPage){%>
+     <li ><A href="<%=request.getRequestURI()%>?whichPage=1">至第一頁</A>&nbsp;</li>   
+     <li><A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">上一頁</A>&nbsp;</li>   
+    <%}%>
+  
+    <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
+       <li >  <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">下一頁 </A>&nbsp;</li>  
+       <li> <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">最後一頁</A>&nbsp;</li>
+    <%}%>
+  <%}%>  
+</div>
+
+ &nbsp
+ 
+<div >
+<%if (pageNumber>1) {%>
+    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
+    	
+       <select size="1" class="form-control" name="whichPage">
+         <%for (int i=1; i<=pageNumber; i++){%>
+            <option value="<%=i%>">跳至第<%=i%>頁
+         <%}%> 
+       </select>
+  </div>     
+  		 &nbsp &nbsp
+       	<div >
+       <input type="submit" class="btn btn-outline-success" value="確定" style="margin-right: 20px;" >  
+        
+    </FORM>
+  <%}%>
+
+</div>
+
+
+
+
+
+ </div>
+
+
+
+  
+  

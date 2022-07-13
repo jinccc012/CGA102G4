@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+
+.order_container {
+	position: relative;
+	display: flex;
+	width: 100%; 
+	border: 1px solid red;
+	border-radius: 10px;
+}
+
+.order_info {
+	justify-content: space-around;
+
+	width: 40%;
+}
+
+.order_info div{
+	margin-left: 10px;
+	
+}
+
+.car_model {
+
+	justify-content: space-around;
+	width: 60%;
+}
+
+.order_inner {
+	font-size: 18px;
+	font-family: 微軟正黑體 !important;
+	
+}
+
+.order_inner label {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.order_inner_1 {
+	margin-top: 20px;
+}
+
+.div_payment_info input{
+	border-radius: 3px;
+/* 	border: 1px solid #ccc; */
+	padding: 10px 0px;
+	font-size: 20px;
+	margin-left: 10px;
+}
+
+#form_submit {
+/* 	border: 0; */
+	background-color: #003C9D;
+	color: #fff;
+	border-radius: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	width: 100%;
+	height: 50px;
+	margin-right: 30px;
+	margin-top: 13px;
+}
+
+.div_payment_info {
+/* 	background-color: purple; */
+	border: 1px red solid;
+	margin-top: 5px;
+	border-radius: 5px;
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
+
+.credit_card {
+	width: 40%;
+	
+	justify-content: space-around;
+}
+
+.credit_card label{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.money_div{
+	width: 60%;
+	
+	justify-content: space-around;
+}
+
+
+/* 活動優惠 */
+.money_div .event_div {
+/* 	border: 1px solid black; */
+	display: flex;
+	
+	height: 20%;
+	margin-left: 10px;
+	
+}
+
+.money_div .event_div label{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 0px;
+	width: 50%;
+}
+
+/* 可用點數 */
+.money_div .aviliable_point {
+	
+	height: 20%;
+	display: flex;
+	
+	margin-left: 10px;
+}
+
+.money_div .aviliable_point label{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 0px;
+	
+	width: 50%;
+}
+
+/* 套用點數 */
+.consume_point {
+	
+	display: flex;
+	
+	height: 20%;
+	margin-left: 10px;
+}
+
+.consume_point label{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 0px;
+	
+	width: 50%;
+	
+}
+
+/* 訂單金額 */
+.money_div .pay {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 2%;
+}
+
+.money_div .original_pay{
+	
+	width: 400px;
+	
+/* 	display: flex; */
+/* 	justify-content: space-around; */
+}
+
+.money_div .final_pay {
+	
+	width: 264px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.money_div .original_pay del{
+	color: grey;
+	font-size: 24px;
+	text-align: right;
+	float: right;
+}
+
+.money_div .original_pay label {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+#usePoint {
+	width: 100px;
+	margin-left: 77px;
+}
+
+label{
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Family Rent 員工後台登入系統</title>
+    <link rel="icon" href="../../resources/icon/pngkey.com-gps-icon-png-5131691.png" type="image/x-icon" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="css/bootstrap-datepicker.css"> -->
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="../../resources/css/head.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/jquery.datetimepicker.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap');
+    </style>
+    <style>
+        input {
+            margin-top: 10px;
+            border-radius: 2px;
+            background-color: rgba(160, 193, 210, 0.5);
+            border: 2px;
+        }
+
+        form {
+            font-weight: bold;
+        }
+
+        button {
+            border: 0;
+            background-color: rgba(160, 193, 210, 0.8);
+            color: #fff;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        body {
+            font-family: 思源黑體 !important;
+            font-weight: bold;
+        }
+
+        div.container {
+            /* background-color: rgba(216, 226, 218, 0.4); */
+            background-color: rgba(255, 218, 166, 0.8);
+            border-radius: 2%;
+        }
+
+        h1.employee {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        a1 {
+            font-weight: bold;
+        }
+
+        div.input1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 背景圖輸入這行div!!!!-->
+    <div class="hero" style="background-image: url('../../resources/img/4.jpg'); ">
+
+        <div class="container"
+            style="width: 20%; position:fixed; top:50%; left:50%;margin-left:calc(-20% / 2); margin-top: -111px;;">
+            <h1 class="employee" style="display: flex;justify-content: center; margin-top: 20px;">員工登入系統</h1>
+            <form class="in-form validate-form container">
+                <!-- 輸入MAIL -->
+                <div class="input1 validate-input" data-validate="帳號未輸入">
+                    <!-- <label for="input1">帳號:</label> -->
+                    <input class="input1" type="text" id="username" name="username" placeholder="請輸入員工帳號"
+                        style="font-size:25px;height:37px; width:100%;">
+                </div>
+                <!-- 輸入密碼 -->
+                <div class="input1 validate-input">
+                    <!-- <label for="input2">密碼:</label> -->
+                    <input class="input2" type="password" id="password" name="password" placeholder="請輸入密碼"
+                        style="margin-top:10px;font-size:25px;height:37px; width:100%;">
+                </div>
+
+
+            </form>
+            <!-- 登入button -->
+            <div class=" container" style="display: inline-block">
+                <button class="button3" style="width:100%;height:40px;margin: 20px 0px;">登入</button>
+            </div>
+
+
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+            <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <script>
+                $('.button3').click(function () {
+                    let username = $('#username').val()
+                    let password = $('#password').val()
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("post", '../../EmployeeLogin', true);
+                    xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                    xhr.send(`username=${username}&password=${password}`);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) { //處理完成
+                            if (xhr.status == 200 && xhr.responseText !== 'false') { //登入成功
+                                swal({
+                                    title: "登入成功",
+                                    icon: "success",
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+                                        window.location.replace(xhr.responseText);
+                                    }
+                                })
+                            } else {
+                                swal({
+                                    title: "帳號或密碼錯誤",
+                                    icon: "error",
+                                })
+                            }
+                        }
+                    }
+
+
+                })
+
+            </script>
+
+</body>
+
+</html>

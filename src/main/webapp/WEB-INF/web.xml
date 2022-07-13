@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>CGA102G4</display-name>
+ <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+<!--   會員登入Filter -->
+  <filter>
+    <filter-name>MemberLoginFilter</filter-name>
+    <filter-class>filter.MemberLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>MemberLoginFilter</filter-name>
+    <url-pattern>/front_end/bidding/*</url-pattern>
+    <url-pattern>/front_end/member/*</url-pattern>
+    <url-pattern>/front_end/order/*</url-pattern>
+    <url-pattern>/front_end/rcar_order/*</url-pattern>
+    <url-pattern>/scar/scarAuctionAll</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+<!--   會員登入Check  Filter -->
+  <filter>
+    <filter-name>LoginChickFilter</filter-name>
+    <filter-class>filter.LoginChickFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginChickFilter</filter-name>
+    <url-pattern>/front_end/Login/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <!--   員工登入Filter -->
+  <filter>
+    <filter-name>EmpLoginFilter</filter-name>
+    <filter-class>filter.EmpLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EmpLoginFilter</filter-name>
+    <url-pattern>/back_end/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <!--   員工登入check  Filter -->
+  <filter>
+    <filter-name>EmpLoginChickFilter</filter-name>
+    <filter-class>filter.EmpLoginChickFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EmpLoginChickFilter</filter-name>
+    <url-pattern>/back_end/EmployeeLogin/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <!--   8.員工管理Filter -->
+  <filter>
+    <filter-name>EmpFilter</filter-name>
+    <filter-class>filter.EmpFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EmpFilter</filter-name>
+    <url-pattern>/back_end/employee/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <!--   1.訂單管理Filter -->
+  <filter>
+    <filter-name>EmpOrderFilter</filter-name>
+    <filter-class>filter.EmpOrderFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EmpOrderFilter</filter-name>
+    <url-pattern></url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+   <!--   3.出車還車管理Filter -->
+  <filter>
+    <filter-name>PaybackCarFilter</filter-name>
+    <filter-class>filter.PaybackCarFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PaybackCarFilter</filter-name>
+    <url-pattern></url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+ 
+    <!--   4.車輛調度管理Filter -->
+  <filter>
+    <filter-name>CarDistributionFilter</filter-name>
+    <filter-class>filter.CarDistributionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CarDistributionFilter</filter-name>
+    <url-pattern>/back_end/cardispatchrecord/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+ 
+    <!--   5.門市車輛管理Filter -->
+  <filter>
+    <filter-name>StoreCarFilter</filter-name>
+    <filter-class>filter.StoreCarFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>StoreCarFilter</filter-name>
+    <url-pattern>/back_end/storecarcontrol/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+    <!--   6.配車管理Filter -->
+  <filter>
+    <filter-name>CarScheduleFilter</filter-name>
+    <filter-class>filter.CarScheduleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CarScheduleFilter</filter-name>
+    <url-pattern>/back_end/car_distribution/*</url-pattern>
+    <url-pattern>/back_end/otherCarOrder/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+    <!--   7.行銷管理Filter -->
+  <filter>
+    <filter-name>MarketingFilter</filter-name>
+    <filter-class>filter.MarketingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>MarketingFilter</filter-name>
+    <url-pattern></url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+    <!--   9.客服管理Filter -->
+  <filter>
+    <filter-name>CustomerServiceFilter</filter-name>
+    <filter-class>filter.CustomerServiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CustomerServiceFilter</filter-name>
+    <url-pattern></url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+    <!--   10.總公司車輛管理Filter -->
+  <filter>
+    <filter-name>CompanyCarFilter</filter-name>
+    <filter-class>filter.CompanyCarFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CompanyCarFilter</filter-name>
+    <url-pattern></url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+    <!--   11.中古車拍賣管理Filter -->
+  <filter>
+    <filter-name>AuctionFilter</filter-name>
+    <filter-class>filter.AuctionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuctionFilter</filter-name>
+    <url-pattern>/scar/scarAdd</url-pattern>
+    <url-pattern>/scar/scarManage</url-pattern>
+    <url-pattern>/scar_ReserveServlet</url-pattern>
+    <url-pattern>/scar/sbidManage</url-pattern>
+    <url-pattern>/bid/bidShow</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+      <!--   12.門市管理Filter -->
+  <filter>
+    <filter-name>StoreFilter</filter-name>
+    <filter-class>filter.StoreFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>StoreFilter</filter-name>
+    <url-pattern>/back_end/Store/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+</web-app>

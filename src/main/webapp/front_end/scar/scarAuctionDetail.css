@@ -1,0 +1,91 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Koulen&family=Teko:wght@300&display=swap')
+	;
+/* 隱藏input數字的上下按鈕 */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none !important;
+	margin: 0;
+}
+
+.text-rt {
+	font-size: 20px;
+	font-weight: 900;
+	font-family: 'Open Sans', '微軟正黑體';
+	color: red;
+}
+
+.text-r {
+	font-size: 20px;
+	font-weight: 900;
+	font-family: 'Open Sans', '微軟正黑體';
+}
+
+.text-r2 {
+	font-size: 24px;
+	font-weight: 900;
+	font-family: 'Open Sans', '微軟正黑體';
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.inputdo {
+	margin-right: 10px;
+	border-radius: 5px;
+	width: 270px;
+}
+
+.fado {
+	margin-top: 2px;
+	margin-left: 2px;
+}
+
+.formdo {
+	display: flex;
+	position: relative;
+	margin-top: 10px;
+	vertical-align: bottom;
+}
+
+.divunder {
+	border: 2px solid #FFBA3B;
+	display: block;
+	background-color: #FFFAF2;
+	border-radius: 10px;
+	margin-top: 50px;
+	width: 800px;
+	height: 800px;
+	position: relative;
+	left: 360px;
+	top:-100px;
+}
+
+.scarimg {
+	width: 700px;
+	height: 400px;
+	margin-top: 40px;
+	margin-left: 50px;
+	border-radius: 10px;
+}
+
+.formdetail {
+	margin-top: 10px;
+}
+
+.divl {
+	position: relative;
+	width: 300px;
+	border-radius: 10px;
+	margin: 25px 25px 25px 50px;
+}
+
+.divr {
+	position: relative;
+	width: 380px;
+	border-radius: 10px;
+	margin: 25px 50px 25px 25px;
+}
+
+.divtext {
+	display: flex;
+	justify-content: space-between;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <Resource name="jdbc/cga102g4" auth="Container"
+		type="javax.sql.DataSource" driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/cga102g4?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=true&amp;serverTimezone=Asia/Taipei"
+		username="root" password="password" maxTotal="20" maxIdle="10"
+		maxWaitMillis="500" />
+		
+	<Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" 
+		name="jdbc/FamilyrentDB" password="password" type="javax.sql.DataSource" 
+		url="jdbc:mysql://localhost:3306/cga102g4?serverTimezone=Asia/Taipei" username="root"/>
+		
+</Context>
